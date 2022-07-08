@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'package:tarefa_pratica_bloc_adapter/features/main_feature/domain/entities/todo_entitie.dart';
+import 'package:tarefa_pratica_bloc_adapter/features/main_feature/presentation/blocs/todo_bloc.dart';
+import 'package:tarefa_pratica_bloc_adapter/features/main_feature/presentation/blocs/todo_event.dart';
+
 class CardInfo extends StatelessWidget {
-  const CardInfo({Key? key}) : super(key: key);
+  final Todo todo;
+  final TodoBloc bloc;
+  const CardInfo({Key? key, required this.todo, required this.bloc})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      //height: 150,
       width: double.maxFinite,
       child: Card(
+        elevation: 10,
         color: Colors.grey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -17,13 +24,25 @@ class CardInfo extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [Text("Item nº 1"), Icon(Icons.close)],
+                children: [
+                  Text("Item ID: ${todo.id.toString()}"),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      bloc.inputTodo.add(RemoveTodoEvent(todo: todo));
+                    },
+                  )
+                ],
               ),
             ),
-            const Text(
-                "Titulo: \nsunt aut facere repellat provident occaecati excepturi optio reprehenderit"),
-            const Text(
-                "Descrição: \nsunt aut facere repellat provident occaecati excepturi optio reprehenderit"),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: RichText(
+                  text: TextSpan(children: [
+                TextSpan(text: todo.title.toString()),
+                TextSpan(text: todo.body.toString())
+              ])),
+            )
           ],
         ),
       ),

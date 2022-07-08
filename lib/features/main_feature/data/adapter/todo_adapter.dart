@@ -23,7 +23,7 @@ class TodoAdapter {
 
   Todo toEntity() => Todo(userId: userId, id: id, title: title, body: body);
 
-  // @override
-  // // ignore: override_on_non_overriding_member
-  // List<Object?> get props => [userId, id, title, body];
+  @override
+  // ignore: override_on_non_overriding_member
+  List<Object?> get props => [userId, id, title, body];
 }

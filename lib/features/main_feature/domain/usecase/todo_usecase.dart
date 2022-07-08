@@ -1,9 +1,11 @@
+import 'package:tarefa_pratica_bloc_adapter/features/main_feature/domain/repository/todo_repository.dart';
+
 class GetTodo {
-  // final TodoRepository repository;
+  final ITodoRepository repository;
 
-  // GetTodo({required this.repository});
+  GetTodo({required this.repository});
 
-  // Future call() {
-  //   return repository.getTodo();
-  // }
+  call() {
+    return repository.getTodo();
+  }
 }
